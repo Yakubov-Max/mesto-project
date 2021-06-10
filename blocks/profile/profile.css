@@ -4,7 +4,6 @@
   padding-top: 40px;
   display: flex;
   justify-content: space-between;
-  max-height: 120px;
 }
 
 @media screen and (max-width: 880px) {
@@ -17,7 +16,6 @@
 @media screen and (max-width: 768px) {
   .profile {
     flex-direction: column;
-    min-height: 286px;
     padding-left: 0px;
     padding-right: 0px;
   }

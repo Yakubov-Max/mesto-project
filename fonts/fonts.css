@@ -16,3 +16,12 @@
   font-weight: normal;
 }
 
+@font-face {
+  src:
+   url("../vendor/fonts/Inter/Inter-Medium.woff2") format("woff2"),
+   url("../vendor/fonts/Inter/Inter-Medium.woff") format("woff");
+
+  font-family: "Inter";
+  font-weight: 500;
+}
+
