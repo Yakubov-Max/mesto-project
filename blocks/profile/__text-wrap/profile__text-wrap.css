@@ -1,0 +1,10 @@
+.profile__text-wrap {
+  padding-left: 30px;
+}
+
+@media screen and (max-width: 768px) {
+  .profile__text-wrap {
+    text-align: center;
+    padding-left: 0px;
+  }
+}

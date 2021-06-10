@@ -1,0 +1,25 @@
+.popup__text-input {
+  border: 0;
+  outline: none;
+  box-sizing: border-box;
+  border-bottom: 1px solid #000000;
+  background-color: transparent;
+  width: calc(100% - 72px);
+  font-family: inherit;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 17px;
+  padding-bottom: 13px;
+  height: 27px;
+  padding-top: 30px;
+}
+
+.popup__text-input:first-child {
+  padding-top: 0px;
+}
+
+@media screen and (max-width: 530px) {
+  .popup__text-input {
+    width: calc(100% - 44px);
+  }
+}
