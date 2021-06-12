@@ -5,11 +5,18 @@
   color: white;
   background-color: black;
   font-family: inherit;
+  border-radius: 2px;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 22px;
+  text-align: center;
 }
 
 @media screen and (max-width: 530px) {
   .popup__save-button {
     width: 238px;
     height: 46px;
+    font-size: 14px;
+    line-height: 17px;
   }
 }

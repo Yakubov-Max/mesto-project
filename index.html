@@ -8,85 +8,83 @@
     <title>Mesto</title>
   </head>
   <body class="page">
-    <div class="popup">
-      <div class="popup__container">
-        <button class="popup__close-button ele-hover"></button>
-        <h2 class="popup__title">Редактировать профиль</h2>
-        <form action="submit" class="popup__form">
-          <div class="popup__text-wrapper">
-            <input type="text" placeholder="Жак-Ив Кусто" class="popup__text-input" />
-            <input type="text" placeholder="Исследователь океана" class="popup__text-input" />
-          </div>
-          <div class="popup__button-wrapper">
-            <input type="submit" class="popup__save-button ele-hover" value="Сохранить" />
-          </div>
-        </form>
-      </div>
-    </div>
     <header class="header">
-      <img src="./images/logo.svg" alt="logo" class="header__logo" />
+      <img src="./images/logo.svg" alt="Логотип" class="header__logo" />
     </header>
     <main class="content">
-      <div class="profile">
+      <section class="profile">
         <div class="profile__info">
           <img src="./images/kusto-profile.jpg" alt="аватар" class="profile__avatar" />
           <div class="profile__text-wrap">
             <div class="profile__name-wrapper">
               <h1 class="profile__name">Жак-Ив Кусто</h1>
-              <button class="profile__edit-button ele-hover"></button>
+              <button type="button" class="profile__edit-button ele-hover" aria-label="Редактировать"></button>
             </div>
-            <h2 class="profile__occupation">Исследователь океана</h2>
+            <p class="profile__occupation">Исследователь океана</p>
           </div>
         </div>
-        <button class="profile__add-button ele-hover"></button>
-      </div>
-      <div class="elements">
-        <div class="element">
+        <button type="button" class="profile__add-button ele-hover" aria-label="Добавить"></button>
+      </section>
+      <section class="elements">
+        <article class="element">
           <img src="./images/karachaevsk.jpg" alt="Карачаевск" class="element__image" />
           <div class="element__sub-box">
             <h3 class="element__title">Карачаевск</h3>
-            <button class="element__like-button ele-hover"></button>
+            <button type="button" class="element__like-button ele-hover" aria-label="Лайк"></button>
           </div>
-        </div>
-        <div class="element">
+        </article>
+        <article class="element">
           <img src="./images/elbrus.jpg" alt="Гора Эльбрус" class="element__image" />
           <div class="element__sub-box">
             <h3 class="element__title">Гора Эльбрус</h3>
-            <button class="element__like-button ele-hover"></button>
+            <button type="button" class="element__like-button ele-hover" aria-label="Лайк"></button>
           </div>
-        </div>
-        <div class="element">
+        </article>
+        <article class="element">
           <img src="./images/dombai.jpg" alt="Домбай" class="element__image" />
           <div class="element__sub-box">
             <h3 class="element__title">Домбай</h3>
-            <button class="element__like-button ele-hover"></button>
+            <button type="button" class="element__like-button ele-hover" aria-label="Лайк"></button>
           </div>
-        </div>
-        <div class="element">
+        </article>
+        <article class="element">
           <img src="./images/elbrus.jpg" alt="Гора Эльбрус" class="element__image" />
           <div class="element__sub-box">
             <h3 class="element__title">Гора Эльбрус</h3>
-            <button class="element__like-button ele-hover"></button>
+            <button type="button" class="element__like-button ele-hover" aria-label="Лайк"></button>
           </div>
-        </div>
-        <div class="element">
+        </article>
+        <article class="element">
           <img src="./images/dombai.jpg" alt="Домбай" class="element__image" />
           <div class="element__sub-box">
             <h3 class="element__title">Домбай</h3>
-            <button class="element__like-button ele-hover"></button>
+            <button type="button" class="element__like-button ele-hover" aria-label="Лайк"></button>
           </div>
-        </div>
-        <div class="element">
+        </article>
+        <article class="element">
           <img src="./images/karachaevsk.jpg" alt="Карачаево-Черкесия" class="element__image" />
           <div class="element__sub-box">
             <h3 class="element__title">Карачаево-Черкесия</h3>
-            <button class="element__like-button ele-hover"></button>
+            <button type="button" class="element__like-button ele-hover" aria-label="Лайк"></button>
           </div>
-        </div>
-      </div>
+        </article>
+      </section>
     </main>
     <footer class="footer">
       <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
     </footer>
+    <div class="popup popup_opened">
+      <div class="popup__container">
+        <button class="popup__close-button ele-hover" type="button"></button>
+        <h2 class="popup__title">Редактировать профиль</h2>
+        <form action="submit" class="popup__form">
+            <input name="profile-name" type="text" placeholder="Ваше имя" class="popup__text-input" />
+            <input name="profile-about" type="text" placeholder="О себе" class="popup__text-input" />
+          <div class="popup__button-wrapper">
+            <button name="popup-submit" type="submit" class="popup__save-button ele-hover">Сохранить</button>
+          </div>
+        </form>
+      </div>
+    </div>
   </body>
 </html>
