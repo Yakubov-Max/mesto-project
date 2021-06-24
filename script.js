@@ -103,8 +103,8 @@ function addCard(name, link) {
       <button type="button" class="element__like-button ele-hover" aria-label="лайк"></button>
     </div>
     <div class="image-popup">
-      <button class="close-button"></button>
       <figure class="image-popup__figure">
+        <button class="close-button ele-hover"></button>
         <img src='${link}' alt="${name}" class="image-popup__image" />
         <figcaption class="image-popup__caption">${name}</figcaption>
       </figure>
@@ -149,3 +149,9 @@ deleteButtons.forEach(deleteButton => deleteButton.addEventListener('click', () 
 const images = document.querySelectorAll('.element__image')
 
 images.forEach(image => image.addEventListener('click', () => image.parentNode.querySelector('.image-popup').classList.add('image-popup_opened')))
+
+// close image popup
+
+const imagePopupCloseButtons = document.querySelectorAll('.close-button')
+
+imagePopupCloseButtons.forEach(closeButton => closeButton.addEventListener('click', () => console.log(closeButton.parentNode.parentNode.classList.remove('image-popup_opened'))))
