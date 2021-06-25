@@ -57,6 +57,23 @@
         </form>
       </div>
     </div>
-    <script src="./script.js"></script>
+    <template id="element">
+      <article class="element">
+        <button type="button" class="element__delete-button ele-hover" aria-label="удалить"></button>
+        <img src="#" alt="#" class="element__image" />
+        <div class="element__sub-box">
+          <h3 class="element__title">#</h3>
+          <button type="button" class="element__like-button ele-hover" aria-label="лайк"></button>
+        </div>
+      </article>
+    </template>
+    <div class="popup popup_image">
+      <figure class="image-popup__figure">
+        <button class="close-button ele-hover"></button>
+        <img src='#' alt="#" class="image-popup__image" />
+        <figcaption class="image-popup__caption">#</figcaption>
+      </figure>
+    </div>
+    <script src="./scripts/script.js"></script>
   </body>
 </html>
