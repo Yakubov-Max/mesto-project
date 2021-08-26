@@ -177,3 +177,13 @@ popup.forEach(element => {
 function handleOverlayClick(evt) {
   closePopup(evt.target)
 }
+
+document.addEventListener("keydown", handlePopupEsc)
+
+function handlePopupEsc(evt) {
+  if (evt.key === "Escape") {
+    popup.forEach(element => {
+      closePopup(element)
+    })
+  }
+}
