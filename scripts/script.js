@@ -167,3 +167,13 @@ popupCloseButton.addEventListener("click", () => closePopup(imagePopup));
 function handleCardDeleteClick(evt) {
   evt.target.closest(".element").remove();
 }
+
+const popup = document.querySelectorAll(".popup")
+
+popup.forEach(element => {
+  element.addEventListener("click", handleOverlayClick)
+})
+
+function handleOverlayClick(evt) {
+  closePopup(evt.target)
+}
