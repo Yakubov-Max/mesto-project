@@ -1,3 +1,5 @@
+import "../pages/index.css"
+
 import { submitCard, addForm } from "./components/card.js";
 import {
   editForm,
