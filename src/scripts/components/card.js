@@ -1,6 +1,7 @@
 import { popupAdd, closePopup } from "./modal.js";
 import { handleLikeClick } from "./utils.js";
 import { handleImageClick } from "./modal.js";
+import { getInitialCards } from "./api.js";
 export { addForm, submitCard };
 
 const addForm = popupAdd.querySelector(".popup__form");
@@ -47,18 +48,8 @@ function handleCardDeleteClick(evt) {
 
 // download and fill cards
 
-function downloadCards() {
-  return fetch("https://mesto.nomoreparties.co/v1/plus-cohort-1/cards/", {
-    method: "GET",
-    headers: {
-      authorization: "",
-      "Content-Type": "application/json",
-    },
-  }).then((res) => res.json());
-}
-
-function fillDownloadedCards() {
-  let initialCards = downloadCards();
+export function fillDownloadedCards() {
+  let initialCards = getInitialCards();
   initialCards.then((cards) => {
     cards.forEach((card) => {
       let cardData = {
@@ -70,5 +61,3 @@ function fillDownloadedCards() {
     });
   });
 }
-
-fillDownloadedCards();

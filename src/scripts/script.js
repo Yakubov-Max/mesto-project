@@ -1,6 +1,6 @@
-import "../pages/index.css"
+import "../pages/index.css";
 
-import { submitCard, addForm } from "./components/card.js";
+import { submitCard, addForm, fillDownloadedCards } from "./components/card.js";
 import {
   editForm,
   submitFormProfile,
@@ -18,6 +18,7 @@ import {
   popupAdd,
 } from "./components/modal.js";
 import { enableValidation } from "./components/validate.js";
+import { updateProfileInfo } from "./components/profile.js";
 
 editForm.addEventListener("submit", submitFormProfile);
 document.addEventListener("keydown", handlePopupEsc);
@@ -36,3 +37,6 @@ enableValidation({
   inputErrorClass: "popup__text-input_error_active",
   errorClass: "popup__error_active",
 });
+
+updateProfileInfo();
+fillDownloadedCards();
