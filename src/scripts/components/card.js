@@ -1,8 +1,6 @@
 import { popupAdd, closePopup } from "./modal.js";
-import { initialCards } from "./initialCards.js";
 import { handleLikeClick } from "./utils.js";
 import { handleImageClick } from "./modal.js";
-
 export { addForm, submitCard };
 
 const addForm = popupAdd.querySelector(".popup__form");
@@ -47,12 +45,30 @@ function handleCardDeleteClick(evt) {
   evt.target.closest(".element").remove();
 }
 
-// fill cards from InitialCards
-for (let index = 0; index < initialCards.length; index++) {
-  let cardData = {
-    cardName: initialCards[index].name,
-    cardLink: initialCards[index].link,
-  };
-  const defaultCard = createCard(cardData);
-  elementsContainer.prepend(defaultCard);
+// download and fill cards
+
+function downloadCards() {
+  return fetch("https://mesto.nomoreparties.co/v1/plus-cohort-1/cards/", {
+    method: "GET",
+    headers: {
+      authorization: "",
+      "Content-Type": "application/json",
+    },
+  }).then((res) => res.json());
 }
+
+function fillDownloadedCards() {
+  let initialCards = downloadCards();
+  initialCards.then((cards) => {
+    cards.forEach((card) => {
+      let cardData = {
+        cardName: card.name,
+        cardLink: card.link,
+      };
+      let downloadedCard = createCard(cardData);
+      elementsContainer.prepend(downloadedCard);
+    });
+  });
+}
+
+fillDownloadedCards();
