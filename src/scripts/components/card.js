@@ -1,7 +1,7 @@
 import { popupAdd, closePopup } from "./modal.js";
 import { handleLikeClick } from "./utils.js";
 import { handleImageClick } from "./modal.js";
-import { getInitialCards } from "./api.js";
+import { getInitialCards, getProfileInfo, sendCard } from "./api.js";
 export { addForm, submitCard };
 
 const addForm = popupAdd.querySelector(".popup__form");
@@ -10,7 +10,7 @@ const cardLink = addForm.querySelector(".popup__add-link");
 const elementsContainer = document.querySelector(".elements");
 
 // add card function and initial cards
-function createCard(cardData) {
+function createCard(cardData, removable = true) {
   const cardTemplate = document.querySelector("#element").content;
   const cardElement = cardTemplate.querySelector(".element").cloneNode(true);
   cardElement.querySelector(".element__image").src = cardData.cardLink;
@@ -22,10 +22,13 @@ function createCard(cardData) {
   cardElement
     .querySelector(".element__image")
     .addEventListener("click", handleImageClick);
-  cardElement
-    .querySelector(".element__delete-button")
-    .addEventListener("click", handleCardDeleteClick);
-
+  if (removable) {
+    cardElement
+      .querySelector(".element__delete-button")
+      .addEventListener("click", handleCardDeleteClick);
+  } else {
+    cardElement.querySelector(".element__delete-button").style.display = "none";
+  }
   return cardElement;
 }
 
@@ -37,6 +40,7 @@ function submitCard(evt) {
     cardLink: cardLink.value,
   };
   const newCard = createCard(cardData);
+  sendCard(cardData.cardName, cardData.cardLink);
   elementsContainer.prepend(newCard);
   addForm.reset();
   closePopup(popupAdd);
@@ -56,8 +60,16 @@ export function fillDownloadedCards() {
         cardName: card.name,
         cardLink: card.link,
       };
-      let downloadedCard = createCard(cardData);
-      elementsContainer.prepend(downloadedCard);
+      // check card owner id and profile id
+      getProfileInfo().then((profileInfo) => {
+        let downloadedCard;
+        if ((profileInfo._id = card.owner._id)) {
+          downloadedCard = createCard(cardData, true);
+        } else {
+          downloadedCard = createCard(cardData, false);
+        }
+        elementsContainer.prepend(downloadedCard);
+      });
     });
   });
 }

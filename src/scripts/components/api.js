@@ -18,3 +18,14 @@ export const getInitialCards = () => {
     headers: config.headers,
   }).then((res) => res.json());
 };
+
+export const sendCard = (name, link) => {
+  fetch(`${config.baseUrl}/cards/`, {
+    method: "POST",
+    headers: config.headers,
+    body: JSON.stringify({
+      name: name,
+      link: link,
+    }),
+  });
+};
