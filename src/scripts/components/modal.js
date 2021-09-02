@@ -94,9 +94,12 @@ function handlePopupEsc(evt) {
   }
 }
 
+import {updateProfileInfo} from "./api.js"
+
 function submitFormProfile(evt) {
   evt.preventDefault();
   profileName.textContent = nameInput.value;
   profileAbout.textContent = aboutInput.value;
+  updateProfileInfo(nameInput.value, aboutInput.value)
   closeProfilePopup();
 }

@@ -12,6 +12,17 @@ export const getProfileInfo = () => {
   }).then((res) => res.json());
 };
 
+export const updateProfileInfo = (name, about) => {
+  return fetch(`${config.baseUrl}/users/me`, {
+    method: "PATCH",
+    headers: config.headers,
+    body: JSON.stringify({
+      name: name,
+      about: about
+    }),
+  });
+};
+
 export const getInitialCards = () => {
   return fetch(`${config.baseUrl}/cards/`, {
     method: "GET",
