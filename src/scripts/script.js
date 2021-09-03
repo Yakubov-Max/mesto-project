@@ -1,10 +1,9 @@
-import "../pages/index.css"
+import "../pages/index.css";
 
 import { submitCard, addForm } from "./components/card.js";
 import {
   editForm,
   submitFormProfile,
-  handlePopupEsc,
   addButton,
   editButton,
   openProfilePopup,
@@ -20,7 +19,6 @@ import {
 import { enableValidation } from "./components/validate.js";
 
 editForm.addEventListener("submit", submitFormProfile);
-document.addEventListener("keydown", handlePopupEsc);
 addForm.addEventListener("submit", submitCard);
 addButton.addEventListener("click", () => openPopup(popupAdd));
 editButton.addEventListener("click", openProfilePopup);

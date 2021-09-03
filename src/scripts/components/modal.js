@@ -16,6 +16,8 @@ export {
   imagePopup,
 };
 
+import { resetValidation } from "./validate.js"
+
 // popup edit
 const editButton = document.querySelector(".profile__edit-button");
 const popupEdit = document.querySelector(".popup_edit");
@@ -58,10 +60,13 @@ function closeProfilePopup() {
 
 function openPopup(popupElement) {
   popupElement.classList.add("popup_opened");
+  resetValidation(popupElement)
+  document.addEventListener("keydown", handlePopupEsc);
 }
 
 function closePopup(popupElement) {
   popupElement.classList.remove("popup_opened");
+  document.removeEventListener("keydown", handlePopupEsc);
 }
 
 // image popup handler
