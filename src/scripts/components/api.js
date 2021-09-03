@@ -1,7 +1,7 @@
 const config = {
   baseUrl: "https://nomoreparties.co/v1/plus-cohort-1",
   headers: {
-    authorization: "",
+    authorization: "a09daf17-3aa6-4f0e-82ba-81e647b9b7db",
     "Content-Type": "application/json",
   },
 };
@@ -40,3 +40,11 @@ export const sendCard = (name, link) => {
     }),
   });
 };
+
+export const deleteCard = (id) => {
+  fetch(`${config.baseUrl}/cards/${id}`, {
+    method: "DELETE",
+    headers: config.headers
+  })
+}
+

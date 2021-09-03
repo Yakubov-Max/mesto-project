@@ -1,7 +1,7 @@
 import { popupAdd, closePopup } from "./modal.js";
 import { handleLikeClick } from "./utils.js";
 import { handleImageClick } from "./modal.js";
-import { getInitialCards, getProfileInfo, sendCard } from "./api.js";
+import { getInitialCards, getProfileInfo, sendCard, deleteCard } from "./api.js";
 export { addForm, submitCard };
 
 const addForm = popupAdd.querySelector(".popup__form");
@@ -15,6 +15,7 @@ function createCard(cardData, removable = true) {
   const cardElement = cardTemplate.querySelector(".element").cloneNode(true);
   cardElement.querySelector(".element__image").src = cardData.cardLink;
   cardElement.querySelector(".element__image").alt = cardData.cardName;
+  cardElement.setAttribute("id", cardData.cardId)
   cardElement.querySelector(".element__title").textContent = cardData.cardName;
   cardElement
     .querySelector(".element__like-button")
@@ -26,8 +27,6 @@ function createCard(cardData, removable = true) {
     cardElement
       .querySelector(".element__delete-button")
       .addEventListener("click", handleCardDeleteClick);
-  } else {
-    cardElement.querySelector(".element__delete-button").style.display = "none";
   }
   return cardElement;
 }
@@ -41,13 +40,16 @@ function submitCard(evt) {
   };
   const newCard = createCard(cardData);
   sendCard(cardData.cardName, cardData.cardLink);
-  elementsContainer.prepend(newCard);
+  fillDownloadedCards()
   addForm.reset();
   closePopup(popupAdd);
 }
 
 function handleCardDeleteClick(evt) {
-  evt.target.closest(".element").remove();
+  const element = evt.target.closest(".element")
+  deleteCard(element.id)
+  element.remove();
+
 }
 
 // download and fill cards
@@ -59,6 +61,7 @@ export function fillDownloadedCards() {
       let cardData = {
         cardName: card.name,
         cardLink: card.link,
+        cardId: card._id
       };
       // check card owner id and profile id
       getProfileInfo().then((profileInfo) => {
