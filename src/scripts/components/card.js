@@ -21,6 +21,8 @@ function createCard(cardData, removable = true) {
     .querySelector(".element__like-button")
     .addEventListener("click", handleLikeClick);
   cardElement
+    .querySelector(".element__like-count").textContent = cardData.cardLikes
+  cardElement
     .querySelector(".element__image")
     .addEventListener("click", handleImageClick);
   if (removable) {
@@ -49,7 +51,6 @@ function handleCardDeleteClick(evt) {
   const element = evt.target.closest(".element")
   deleteCard(element.id)
   element.remove();
-
 }
 
 // download and fill cards
@@ -58,10 +59,12 @@ export function fillDownloadedCards() {
   let initialCards = getInitialCards();
   initialCards.then((cards) => {
     cards.forEach((card) => {
+      console.log(card)
       let cardData = {
         cardName: card.name,
         cardLink: card.link,
-        cardId: card._id
+        cardId: card._id,
+        cardLikes: card.likes.length
       };
       // check card owner id and profile id
       getProfileInfo().then((profileInfo) => {
@@ -76,3 +79,4 @@ export function fillDownloadedCards() {
     });
   });
 }
+
