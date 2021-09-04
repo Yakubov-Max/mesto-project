@@ -15,13 +15,20 @@ import {
   openPopup,
   imagePopup,
   popupAdd,
+  popupEdit
 } from "./components/modal.js";
-import { enableValidation } from "./components/validate.js";
+import { enableValidation, resetValidation } from "./components/validate.js";
 
 editForm.addEventListener("submit", submitFormProfile);
 addForm.addEventListener("submit", submitCard);
-addButton.addEventListener("click", () => openPopup(popupAdd));
-editButton.addEventListener("click", openProfilePopup);
+addButton.addEventListener("click", () => {
+  resetValidation(popupAdd)
+  openPopup(popupAdd)
+});
+editButton.addEventListener("click", () => {
+  openProfilePopup()
+  resetValidation(popupEdit)
+});
 popupAddCloseButton.addEventListener("click", () => closePopup(popupAdd));
 popupCloseButton.addEventListener("click", () => closePopup(imagePopup));
 popupProfileCloseButton.addEventListener("click", closeProfilePopup);
