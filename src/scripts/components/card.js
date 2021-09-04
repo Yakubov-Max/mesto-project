@@ -1,7 +1,12 @@
 import { popupAdd, closePopup } from "./modal.js";
 import { handleLikeClick } from "./utils.js";
 import { handleImageClick } from "./modal.js";
-import { getInitialCards, getProfileInfo, sendCard, deleteCard } from "./api.js";
+import {
+  getInitialCards,
+  getProfileInfo,
+  sendCard,
+  deleteCard,
+} from "./api.js";
 export { addForm, submitCard };
 
 const addForm = popupAdd.querySelector(".popup__form");
@@ -15,13 +20,18 @@ function createCard(cardData, removable = true) {
   const cardElement = cardTemplate.querySelector(".element").cloneNode(true);
   cardElement.querySelector(".element__image").src = cardData.cardLink;
   cardElement.querySelector(".element__image").alt = cardData.cardName;
-  cardElement.setAttribute("id", cardData.cardId)
+  cardElement.setAttribute("id", cardData.cardId);
   cardElement.querySelector(".element__title").textContent = cardData.cardName;
   cardElement
     .querySelector(".element__like-button")
     .addEventListener("click", handleLikeClick);
-  cardElement
-    .querySelector(".element__like-count").textContent = cardData.cardLikes
+  if (cardData.liked) {
+    cardElement
+      .querySelector(".element__like-button")
+      .classList.add("element__like-button_active");
+  }
+  cardElement.querySelector(".element__like-count").textContent =
+    cardData.cardLikes;
   cardElement
     .querySelector(".element__image")
     .addEventListener("click", handleImageClick);
@@ -40,16 +50,15 @@ function submitCard(evt) {
     cardName: cardName.value,
     cardLink: cardLink.value,
   };
-  const newCard = createCard(cardData);
   sendCard(cardData.cardName, cardData.cardLink);
-  fillDownloadedCards()
+  fillDownloadedCards();
   addForm.reset();
   closePopup(popupAdd);
 }
 
 function handleCardDeleteClick(evt) {
-  const element = evt.target.closest(".element")
-  deleteCard(element.id)
+  const element = evt.target.closest(".element");
+  deleteCard(element.id);
   element.remove();
 }
 
@@ -59,15 +68,20 @@ export function fillDownloadedCards() {
   let initialCards = getInitialCards();
   initialCards.then((cards) => {
     cards.forEach((card) => {
-      console.log(card)
       let cardData = {
         cardName: card.name,
         cardLink: card.link,
         cardId: card._id,
-        cardLikes: card.likes.length
+        cardLikes: card.likes.length,
+        liked: false,
       };
       // check card owner id and profile id
       getProfileInfo().then((profileInfo) => {
+        card.likes.forEach((user) => {
+          if (user._id === profileInfo._id) {
+            cardData.liked = true;
+          }
+        });
         let downloadedCard;
         if ((profileInfo._id = card.owner._id)) {
           downloadedCard = createCard(cardData, true);
@@ -79,4 +93,3 @@ export function fillDownloadedCards() {
     });
   });
 }
-
