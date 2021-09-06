@@ -16,9 +16,13 @@ import {
   openPopup,
   imagePopup,
   popupAdd,
+  popupAvatar,
+  popupAvatarContainer,
+  popupAvatarCloseButton,
+  avatarForm,
 } from "./components/modal.js";
 import { enableValidation } from "./components/validate.js";
-import { updateProfileInfo } from "./components/profile.js";
+import { updateProfileInfo, submitFormAvatar } from "./components/profile.js";
 
 editForm.addEventListener("submit", submitFormProfile);
 document.addEventListener("keydown", handlePopupEsc);
@@ -28,6 +32,9 @@ editButton.addEventListener("click", openProfilePopup);
 popupAddCloseButton.addEventListener("click", () => closePopup(popupAdd));
 popupCloseButton.addEventListener("click", () => closePopup(imagePopup));
 popupProfileCloseButton.addEventListener("click", closeProfilePopup);
+popupAvatarContainer.addEventListener("click", () => openPopup(popupAvatar));
+popupAvatarCloseButton.addEventListener("click", () => closePopup(popupAvatar));
+avatarForm.addEventListener("submit", submitFormAvatar);
 
 enableValidation({
   formSelector: ".popup__form",

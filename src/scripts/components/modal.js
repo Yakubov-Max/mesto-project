@@ -14,6 +14,10 @@ export {
   popupAddCloseButton,
   popupCloseButton,
   imagePopup,
+  popupAvatar,
+  popupAvatarContainer,
+  popupAvatarCloseButton,
+  avatarForm,
 };
 
 // popup edit
@@ -41,6 +45,15 @@ const imagePopup = document.querySelector(".popup_image");
 const popupCloseButton = imagePopup.querySelector(".close-button");
 const popup = document.querySelectorAll(".popup");
 
+// edit profile avatar
+
+const popupAvatar = document.querySelector(".popup__edit-avatar");
+const popupAvatarContainer = document.querySelector(
+  ".profile__avatar-container"
+);
+const popupAvatarCloseButton = popupAvatar.querySelector(".close-button");
+const avatarForm = popupAvatar.querySelector(".popup__form");
+
 // profile popup open/close
 
 function openProfilePopup() {
@@ -57,6 +70,7 @@ function closeProfilePopup() {
 // "add popup" open/close
 
 function openPopup(popupElement) {
+  console.log("clicked", popupElement);
   popupElement.classList.add("popup_opened");
 }
 
@@ -94,12 +108,12 @@ function handlePopupEsc(evt) {
   }
 }
 
-import {updateProfileInfo} from "./api.js"
+import { updateProfileInfo } from "./api.js";
 
 function submitFormProfile(evt) {
   evt.preventDefault();
   profileName.textContent = nameInput.value;
   profileAbout.textContent = aboutInput.value;
-  updateProfileInfo(nameInput.value, aboutInput.value)
+  updateProfileInfo(nameInput.value, aboutInput.value);
   closeProfilePopup();
 }

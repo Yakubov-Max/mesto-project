@@ -27,6 +27,16 @@ export const updateProfileInfo = (name, about) => {
   });
 };
 
+export const submitProfileAvatar = (url) => {
+  return fetch(`${config.baseUrl}/users/me/avatar`, {
+    method: "PATCH",
+    headers: config.headers,
+    body: JSON.stringify({
+      avatar: url,
+    }),
+  });
+};
+
 export const getInitialCards = () => {
   return fetch(`${config.baseUrl}/cards/`, {
     method: "GET",

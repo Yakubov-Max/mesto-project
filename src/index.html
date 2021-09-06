@@ -19,7 +19,6 @@
               <button type="button" class="profile__avatar-edit-button" aria-label="Редактировать аватар"></button>
             </div>
           </div>
-
           <div class="profile__text-wrap">
             <div class="profile__name-wrapper">
               <h1 class="profile__name"></h1>
@@ -41,10 +40,10 @@
         <button class="close-button ele-hover" type="button"></button>
         <h2 class="popup__title">Редактировать профиль</h2>
         <form action="submit" class="popup__form">
-            <input required minlength="2" maxlength="40" id="name" name="profile-name" type="text" placeholder="Ваше имя" class="popup__text-input popup__profile-name" />
-            <span class="popup__error popup__error_type_name popup__error_active"></span>
-            <input required minlength="2" maxlength="400" id="about" name="popup__error profile-about" type="text" placeholder="О себе" class="popup__text-input popup__profile-about" />
-            <span class="popup__error popup__error_type_about"></span>
+          <input required minlength="2" maxlength="40" id="name" name="profile-name" type="text" placeholder="Ваше имя" class="popup__text-input popup__profile-name" />
+          <span class="popup__error popup__error_type_name popup__error_active"></span>
+          <input required minlength="2" maxlength="400" id="about" name="popup__error profile-about" type="text" placeholder="О себе" class="popup__text-input popup__profile-about" />
+          <span class="popup__error popup__error_type_about"></span>
           <div class="popup__button-wrapper">
             <button name="popup-submit" type="submit" class="popup__save-button ele-hover">Сохранить</button>
           </div>
@@ -56,28 +55,35 @@
         <button class="close-button ele-hover" type="button"></button>
         <h2 class="popup__title">Новое место</h2>
         <form action="submit" class="popup__form">
-            <input required minlength="2" maxlength="30" name="card-name" id="title" type="text" placeholder="Название" class="popup__text-input popup__add-card" />
-            <span class="popup__error popup__error_type_title"></span>
-            <input required name="card-link" id="url" type="url" placeholder="Ссылка на картинку" class="popup__text-input popup__add-link" />
-            <span class="popup__error popup__error_type_url"></span>
+          <input required minlength="2" maxlength="30" name="card-name" id="title" type="text" placeholder="Название" class="popup__text-input popup__add-card" />
+          <span class="popup__error popup__error_type_title"></span>
+          <input required name="card-link" id="url" type="url" placeholder="Ссылка на картинку" class="popup__text-input popup__add-link" />
+          <span class="popup__error popup__error_type_url"></span>
           <div class="popup__button-wrapper">
             <button name="popup-submit" type="submit" class="popup__save-button ele-hover">Сохранить</button>
           </div>
         </form>
       </div>
     </div>
-    <div class="popup popup_edit-avatar popup_opened">
+    <div class="popup popup__edit-avatar">
       <div class="popup__container">
         <button class="close-button ele-hover" type="button"></button>
         <h2 class="popup__title">Обновить аватар</h2>
         <form action="submit" class="popup__form">
-            <input required name="avatar-link" id="url" type="url" placeholder="Ссылка на картинку" class="popup__text-input popup__add-link" />
-            <span class="popup__error popup__error_type_url"></span>
+          <input required name="avatar-link" id="url" type="url" placeholder="Ссылка на картинку" class="popup__text-input popup__avatar-url" />
+          <span class="popup__error popup__error_type_url"></span>
           <div class="popup__button-wrapper">
             <button name="popup-submit" type="submit" class="popup__save-button ele-hover">Сохранить</button>
           </div>
         </form>
       </div>
+    </div>
+    <div class="popup popup_image">
+      <figure class="image-popup__figure">
+        <button class="close-button ele-hover"></button>
+        <img src='#' alt="#" class="image-popup__image" />
+        <figcaption class="image-popup__caption">#</figcaption>
+      </figure>
     </div>
     <template id="element">
       <article class="element">
@@ -89,17 +95,9 @@
             <button type="button" class="element__like-button ele-hover" aria-label="лайк"></button>
             <span class="element__like-count"></span>
           </div>
-
         </div>
       </article>
     </template>
-    <div class="popup popup_image">
-      <figure class="image-popup__figure">
-        <button class="close-button ele-hover"></button>
-        <img src='#' alt="#" class="image-popup__image" />
-        <figcaption class="image-popup__caption">#</figcaption>
-      </figure>
-    </div>
     <script type="module" src="./scripts/script.js"></script>
   </body>
 </html>
