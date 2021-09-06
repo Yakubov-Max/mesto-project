@@ -15,7 +15,7 @@ const cardLink = addForm.querySelector(".popup__add-link");
 const elementsContainer = document.querySelector(".elements");
 
 // add card function and initial cards
-function createCard(cardData, removable = true) {
+function createCard(cardData, removable = false) {
   const cardTemplate = document.querySelector("#element").content;
   const cardElement = cardTemplate.querySelector(".element").cloneNode(true);
   cardElement.querySelector(".element__image").src = cardData.cardLink;
@@ -37,8 +37,11 @@ function createCard(cardData, removable = true) {
     .addEventListener("click", handleImageClick);
   if (removable) {
     cardElement
+      .querySelector(".element__delete-button").style.display = "none"
+  } else {
+    cardElement
       .querySelector(".element__delete-button")
-      .addEventListener("click", handleCardDeleteClick);
+      .addEventListener('click', handleCardDeleteClick)
   }
   return cardElement;
 }
@@ -83,10 +86,10 @@ export function fillDownloadedCards() {
           }
         });
         let downloadedCard;
-        if ((profileInfo._id = card.owner._id)) {
-          downloadedCard = createCard(cardData, true);
-        } else {
+        if ((profileInfo._id === card.owner._id)) {
           downloadedCard = createCard(cardData, false);
+        } else {
+          downloadedCard = createCard(cardData, true);
         }
         elementsContainer.prepend(downloadedCard);
       });
