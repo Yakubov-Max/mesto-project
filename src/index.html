@@ -13,7 +13,13 @@
     <main class="content">
       <section class="profile">
         <div class="profile__info">
-          <img src="" alt="аватар" class="profile__avatar" />
+          <div class="profile__avatar-container">
+            <img src="" alt="аватар" class="profile__avatar" />
+            <div class="profile__avatar-overlay">
+              <button type="button" class="profile__avatar-edit-button" aria-label="Редактировать аватар"></button>
+            </div>
+          </div>
+
           <div class="profile__text-wrap">
             <div class="profile__name-wrapper">
               <h1 class="profile__name"></h1>
