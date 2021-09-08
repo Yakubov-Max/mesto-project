@@ -1,6 +1,6 @@
 import "../pages/index.css";
 
-import { submitCard, addForm } from "./components/card.js";
+import { submitCard, addForm, fillDownloadedCards } from "./components/card.js";
 import {
   editForm,
   submitFormProfile,
@@ -15,9 +15,15 @@ import {
   openPopup,
   imagePopup,
   popupAdd,
-  popupEdit
+  popupAvatar,
+  popupAvatarContainer,
+  popupAvatarCloseButton,
+  avatarForm,
+  popupEdit,
 } from "./components/modal.js";
 import { enableValidation, resetValidation } from "./components/validate.js";
+import { updateProfileInfo, submitFormAvatar } from "./components/profile.js";
+
 
 editForm.addEventListener("submit", submitFormProfile);
 addForm.addEventListener("submit", submitCard);
@@ -32,6 +38,9 @@ editButton.addEventListener("click", () => {
 popupAddCloseButton.addEventListener("click", () => closePopup(popupAdd));
 popupCloseButton.addEventListener("click", () => closePopup(imagePopup));
 popupProfileCloseButton.addEventListener("click", closeProfilePopup);
+popupAvatarContainer.addEventListener("click", () => openPopup(popupAvatar));
+popupAvatarCloseButton.addEventListener("click", () => closePopup(popupAvatar));
+avatarForm.addEventListener("submit", submitFormAvatar);
 
 enableValidation({
   formSelector: ".popup__form",
@@ -41,3 +50,5 @@ enableValidation({
   inputErrorClass: "popup__text-input_error_active",
   errorClass: "popup__error_active",
 });
+
+Promise.all([updateProfileInfo(), fillDownloadedCards()]);
