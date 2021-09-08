@@ -4,7 +4,6 @@ import { submitCard, addForm, fillDownloadedCards } from "./components/card.js";
 import {
   editForm,
   submitFormProfile,
-  handlePopupEsc,
   addButton,
   editButton,
   openProfilePopup,
@@ -20,15 +19,22 @@ import {
   popupAvatarContainer,
   popupAvatarCloseButton,
   avatarForm,
+  popupEdit,
 } from "./components/modal.js";
-import { enableValidation } from "./components/validate.js";
+import { enableValidation, resetValidation } from "./components/validate.js";
 import { updateProfileInfo, submitFormAvatar } from "./components/profile.js";
 
+
 editForm.addEventListener("submit", submitFormProfile);
-document.addEventListener("keydown", handlePopupEsc);
 addForm.addEventListener("submit", submitCard);
-addButton.addEventListener("click", () => openPopup(popupAdd));
-editButton.addEventListener("click", openProfilePopup);
+addButton.addEventListener("click", () => {
+  resetValidation(popupAdd)
+  openPopup(popupAdd)
+});
+editButton.addEventListener("click", () => {
+  openProfilePopup()
+  resetValidation(popupEdit)
+});
 popupAddCloseButton.addEventListener("click", () => closePopup(popupAdd));
 popupCloseButton.addEventListener("click", () => closePopup(imagePopup));
 popupProfileCloseButton.addEventListener("click", closeProfilePopup);

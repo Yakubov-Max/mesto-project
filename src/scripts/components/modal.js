@@ -18,7 +18,9 @@ export {
   popupAvatarContainer,
   popupAvatarCloseButton,
   avatarForm,
+  popupEdit,
 };
+
 
 // popup edit
 const editButton = document.querySelector(".profile__edit-button");
@@ -71,10 +73,12 @@ function closeProfilePopup() {
 
 function openPopup(popupElement) {
   popupElement.classList.add("popup_opened");
+  document.addEventListener("keydown", handlePopupEsc);
 }
 
 function closePopup(popupElement) {
   popupElement.classList.remove("popup_opened");
+  document.removeEventListener("keydown", handlePopupEsc);
 }
 
 // image popup handler

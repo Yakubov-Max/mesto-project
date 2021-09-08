@@ -109,3 +109,15 @@ function toggleButtonState(inputList, buttonElement, inactiveButtonClass) {
     buttonElement.classList.remove(inactiveButtonClass);
   }
 }
+
+export function resetValidation(popup) {
+  const buttonElement = popup.querySelector('.popup__save-button');
+  buttonElement.classList.add('popup__save-button_disabled');
+  popup.querySelectorAll(".popup__error_active").forEach((element) => {
+    element.classList.remove("popup__error_active")
+    element.textContent = ""
+  })
+  popup.querySelectorAll(".popup__text-input_error_active").forEach((element) => {
+    element.classList.remove("popup__text-input_error_active")
+  })
+}
