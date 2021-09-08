@@ -1,5 +1,5 @@
 import { popupAdd, closePopup } from "./modal.js";
-import { handleLikeClick } from "./utils.js";
+import { handleLikeClick, updateSubmitButtonState } from "./utils.js";
 import { handleImageClick } from "./modal.js";
 import {
   getInitialCards,
@@ -36,11 +36,12 @@ function createCard(cardData, removable = false) {
     .querySelector(".element__image")
     .addEventListener("click", handleImageClick);
   if (removable) {
-    cardElement.querySelector(".element__delete-button").style.display = "none";
-  } else {
     cardElement
-      .querySelector(".element__delete-button")
-      .addEventListener("click", handleCardDeleteClick);
+    .querySelector(".element__delete-button")
+    .addEventListener("click", handleCardDeleteClick);
+
+  } else {
+    cardElement.querySelector(".element__delete-button").style.display = "none";
   }
   return cardElement;
 }
@@ -52,15 +53,16 @@ function submitCard(evt) {
     cardName: cardName.value,
     cardLink: cardLink.value,
   };
-
+  updateSubmitButtonState(popupAdd)
   let cardToSubmit = sendCard(cardData.cardName, cardData.cardLink);
   cardToSubmit
     .then((card) => {
       let cardData = extractCardData(card);
       let submitedCard = createCard(cardData, true);
-      elementsContainer.prepend(submitedCard);
+      elementsContainer.append(submitedCard);
     })
-    .catch((err) => console.log(err));
+    .catch((err) => console.log(err))
+    .finally(updateSubmitButtonState(popupAdd))
   addForm.reset();
   closePopup(popupAdd);
 }
@@ -89,11 +91,11 @@ export function fillDownloadedCards() {
             });
             let downloadedCard;
             if (profileInfo._id === card.owner._id) {
-              downloadedCard = createCard(cardData, false);
-            } else {
               downloadedCard = createCard(cardData, true);
+            } else {
+              downloadedCard = createCard(cardData, false);
             }
-            elementsContainer.prepend(downloadedCard);
+            elementsContainer.append(downloadedCard);
           })
           .catch((err) => {
             console.log(err);

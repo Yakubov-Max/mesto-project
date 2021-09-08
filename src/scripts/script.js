@@ -51,4 +51,4 @@ enableValidation({
   errorClass: "popup__error_active",
 });
 
-Promise.all([updateProfileInfo(), fillDownloadedCards()]);
+Promise.all([updateProfileInfo(), fillDownloadedCards()]).catch(err => console.log(err))

@@ -1,5 +1,6 @@
 import { getProfileInfo, submitProfileAvatar } from "./api.js";
 import { closePopup, popupAvatar } from "./modal.js";
+import {updateSubmitButtonState} from "./utils.js"
 
 const profileName = document.querySelector(".profile__name");
 const profileAvatar = document.querySelector(".profile__avatar");
@@ -19,7 +20,8 @@ export function updateProfileInfo() {
 export function submitFormAvatar(evt) {
   evt.preventDefault();
   let avatarUrl = avatarFormInput.value;
+  updateSubmitButtonState(popupAvatar)
+  submitProfileAvatar(avatarUrl).finally(updateSubmitButtonState(popupAvatar));
   profileAvatar.src = avatarUrl;
-  submitProfileAvatar(avatarUrl);
   closePopup(popupAvatar);
 }

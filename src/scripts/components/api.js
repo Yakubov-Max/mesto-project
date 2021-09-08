@@ -23,10 +23,11 @@ export const updateProfileInfo = (name, about) => {
     body: JSON.stringify({
       name: name,
       about: about,
-    }).catch((err) => {
-      console.log(err);
     }),
-  });
+  })
+  .catch((err) => {
+    console.log(err);
+  })
 };
 
 export const submitProfileAvatar = (url) => {

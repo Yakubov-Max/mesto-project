@@ -21,6 +21,8 @@ export {
   popupEdit,
 };
 
+import {updateSubmitButtonState} from "./utils.js"
+
 
 // popup edit
 const editButton = document.querySelector(".profile__edit-button");
@@ -115,8 +117,14 @@ import { updateProfileInfo } from "./api.js";
 
 function submitFormProfile(evt) {
   evt.preventDefault();
+  updateSubmitButtonState(popupEdit)
+  updateProfileInfo(nameInput.value, aboutInput.value).finally(
+    updateSubmitButtonState(popupEdit)
+  )
   profileName.textContent = nameInput.value;
   profileAbout.textContent = aboutInput.value;
-  updateProfileInfo(nameInput.value, aboutInput.value);
   closeProfilePopup();
 }
+
+
+
