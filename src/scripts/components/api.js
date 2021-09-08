@@ -12,7 +12,7 @@ export const getProfileInfo = () => {
   })
     .then((res) => {
       if (res.ok) {
-        res.json();
+        return res.json();
       }
     })
     .catch((err) => {
@@ -52,7 +52,7 @@ export const getInitialCards = () => {
   })
     .then((res) => {
       if (res.ok) {
-        res.json();
+        return res.json();
       }
     })
     .catch((err) => {
@@ -71,7 +71,7 @@ export const sendCard = (name, link) => {
   })
     .then((res) => {
       if (res.ok) {
-        res.json();
+        return res.json();
       }
     })
     .catch((err) => {
@@ -86,7 +86,7 @@ export const deleteCard = (cardId) => {
   })
     .then((res) => {
       if (res.ok) {
-        res.json();
+        return res.json();
       }
     })
     .catch((err) => {
@@ -101,7 +101,7 @@ export const sendLike = (cardId) => {
   })
     .then((res) => {
       if (res.ok) {
-        res.json();
+        return res.json();
       }
     })
     .catch((err) => {
@@ -116,7 +116,7 @@ export const deleteLike = (cardId) => {
   })
     .then((res) => {
       if (res.ok) {
-        res.json();
+        return res.json();
       }
     })
     .catch((err) => {
