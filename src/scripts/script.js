@@ -45,5 +45,4 @@ enableValidation({
   errorClass: "popup__error_active",
 });
 
-updateProfileInfo();
-fillDownloadedCards();
+Promise.all([updateProfileInfo(), fillDownloadedCards()])

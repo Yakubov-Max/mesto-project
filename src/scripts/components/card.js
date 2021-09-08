@@ -53,8 +53,14 @@ function submitCard(evt) {
     cardName: cardName.value,
     cardLink: cardLink.value,
   };
-  sendCard(cardData.cardName, cardData.cardLink);
-  fillDownloadedCards();
+
+  let cardToSubmit = sendCard(cardData.cardName, cardData.cardLink);
+  cardToSubmit.then((card) => {
+    let cardData = extractCardData(card)
+    let submitedCard = createCard(cardData, true)
+    elementsContainer.prepend(submitedCard);
+  })
+  .catch(err => console.log(err))
   addForm.reset();
   closePopup(popupAdd);
 }
@@ -71,13 +77,7 @@ export function fillDownloadedCards() {
   let initialCards = getInitialCards();
   initialCards.then((cards) => {
     cards.forEach((card) => {
-      let cardData = {
-        cardName: card.name,
-        cardLink: card.link,
-        cardId: card._id,
-        cardLikes: card.likes.length,
-        liked: false,
-      };
+      let cardData = extractCardData(card)
       // check card owner id and profile id
       getProfileInfo().then((profileInfo) => {
         card.likes.forEach((user) => {
@@ -95,4 +95,14 @@ export function fillDownloadedCards() {
       });
     });
   });
+}
+
+function extractCardData(card) {
+  return {
+    cardName: card.name,
+    cardLink: card.link,
+    cardId: card._id,
+    cardLikes: card.likes.length,
+    liked: false,
+  };
 }

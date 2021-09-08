@@ -34,7 +34,7 @@ export const submitProfileAvatar = (url) => {
     body: JSON.stringify({
       avatar: url,
     }),
-  });
+  })
 };
 
 export const getInitialCards = () => {
@@ -49,34 +49,44 @@ export const getInitialCards = () => {
 };
 
 export const sendCard = (name, link) => {
-  fetch(`${config.baseUrl}/cards/`, {
+  return fetch(`${config.baseUrl}/cards/`, {
     method: "POST",
     headers: config.headers,
     body: JSON.stringify({
       name: name,
       link: link,
     }),
-  });
+  })
+  .then((res) => res.json())
+  .catch((err) => {
+    console.log(err);
+  })
 };
 
 export const deleteCard = (cardId) => {
   fetch(`${config.baseUrl}/cards/${cardId}`, {
     method: "DELETE",
     headers: config.headers,
+  })
+  .then((res) => res.json())
+  .catch((err) => {
+    console.log(err);
   });
 };
 
 export const sendLike = (cardId) => {
-  fetch(`${config.baseUrl}/cards/likes/${cardId}`, {
+  return fetch(`${config.baseUrl}/cards/likes/${cardId}`, {
     method: "PUT",
     headers: config.headers,
-  }).catch((err) => {
+  })
+  .then((res) => res.json())
+  .catch((err) => {
     console.log(err);
   });
 };
 
 export const deleteLike = (cardId) => {
-  fetch(`${config.baseUrl}/cards/likes/${cardId}`, {
+  return fetch(`${config.baseUrl}/cards/likes/${cardId}`, {
     method: "DELETE",
     headers: config.headers,
   })
