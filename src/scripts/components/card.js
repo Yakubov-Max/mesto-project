@@ -36,12 +36,11 @@ function createCard(cardData, removable = false) {
     .querySelector(".element__image")
     .addEventListener("click", handleImageClick);
   if (removable) {
-    cardElement
-      .querySelector(".element__delete-button").style.display = "none"
+    cardElement.querySelector(".element__delete-button").style.display = "none";
   } else {
     cardElement
       .querySelector(".element__delete-button")
-      .addEventListener('click', handleCardDeleteClick)
+      .addEventListener("click", handleCardDeleteClick);
   }
   return cardElement;
 }
@@ -55,12 +54,13 @@ function submitCard(evt) {
   };
 
   let cardToSubmit = sendCard(cardData.cardName, cardData.cardLink);
-  cardToSubmit.then((card) => {
-    let cardData = extractCardData(card)
-    let submitedCard = createCard(cardData, true)
-    elementsContainer.prepend(submitedCard);
-  })
-  .catch(err => console.log(err))
+  cardToSubmit
+    .then((card) => {
+      let cardData = extractCardData(card);
+      let submitedCard = createCard(cardData, true);
+      elementsContainer.prepend(submitedCard);
+    })
+    .catch((err) => console.log(err));
   addForm.reset();
   closePopup(popupAdd);
 }
@@ -75,26 +75,34 @@ function handleCardDeleteClick(evt) {
 
 export function fillDownloadedCards() {
   let initialCards = getInitialCards();
-  initialCards.then((cards) => {
-    cards.forEach((card) => {
-      let cardData = extractCardData(card)
-      // check card owner id and profile id
-      getProfileInfo().then((profileInfo) => {
-        card.likes.forEach((user) => {
-          if (user._id === profileInfo._id) {
-            cardData.liked = true;
-          }
-        });
-        let downloadedCard;
-        if ((profileInfo._id === card.owner._id)) {
-          downloadedCard = createCard(cardData, false);
-        } else {
-          downloadedCard = createCard(cardData, true);
-        }
-        elementsContainer.prepend(downloadedCard);
+  initialCards
+    .then((cards) => {
+      cards.forEach((card) => {
+        let cardData = extractCardData(card);
+        // check card owner id and profile id
+        getProfileInfo()
+          .then((profileInfo) => {
+            card.likes.forEach((user) => {
+              if (user._id === profileInfo._id) {
+                cardData.liked = true;
+              }
+            });
+            let downloadedCard;
+            if (profileInfo._id === card.owner._id) {
+              downloadedCard = createCard(cardData, false);
+            } else {
+              downloadedCard = createCard(cardData, true);
+            }
+            elementsContainer.prepend(downloadedCard);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
       });
+    })
+    .catch((err) => {
+      console.log(err);
     });
-  });
 }
 
 function extractCardData(card) {

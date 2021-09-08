@@ -23,6 +23,8 @@ export const updateProfileInfo = (name, about) => {
     body: JSON.stringify({
       name: name,
       about: about,
+    }).catch((err) => {
+      console.log(err);
     }),
   });
 };
@@ -34,7 +36,9 @@ export const submitProfileAvatar = (url) => {
     body: JSON.stringify({
       avatar: url,
     }),
-  })
+  }).catch((err) => {
+    console.log(err);
+  });
 };
 
 export const getInitialCards = () => {
@@ -57,10 +61,10 @@ export const sendCard = (name, link) => {
       link: link,
     }),
   })
-  .then((res) => res.json())
-  .catch((err) => {
-    console.log(err);
-  })
+    .then((res) => res.json())
+    .catch((err) => {
+      console.log(err);
+    });
 };
 
 export const deleteCard = (cardId) => {
@@ -68,10 +72,10 @@ export const deleteCard = (cardId) => {
     method: "DELETE",
     headers: config.headers,
   })
-  .then((res) => res.json())
-  .catch((err) => {
-    console.log(err);
-  });
+    .then((res) => res.json())
+    .catch((err) => {
+      console.log(err);
+    });
 };
 
 export const sendLike = (cardId) => {
@@ -79,10 +83,10 @@ export const sendLike = (cardId) => {
     method: "PUT",
     headers: config.headers,
   })
-  .then((res) => res.json())
-  .catch((err) => {
-    console.log(err);
-  });
+    .then((res) => res.json())
+    .catch((err) => {
+      console.log(err);
+    });
 };
 
 export const deleteLike = (cardId) => {

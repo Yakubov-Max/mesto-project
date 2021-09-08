@@ -70,7 +70,6 @@ function closeProfilePopup() {
 // "add popup" open/close
 
 function openPopup(popupElement) {
-  console.log("clicked", popupElement);
   popupElement.classList.add("popup_opened");
 }
 
