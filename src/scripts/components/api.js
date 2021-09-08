@@ -10,7 +10,11 @@ export const getProfileInfo = () => {
     method: "GET",
     headers: config.headers,
   })
-    .then((res) => res.json())
+    .then((res) => {
+      if (res.ok) {
+        res.json();
+      }
+    })
     .catch((err) => {
       console.log(err);
     });
@@ -24,10 +28,9 @@ export const updateProfileInfo = (name, about) => {
       name: name,
       about: about,
     }),
-  })
-  .catch((err) => {
+  }).catch((err) => {
     console.log(err);
-  })
+  });
 };
 
 export const submitProfileAvatar = (url) => {
@@ -47,7 +50,11 @@ export const getInitialCards = () => {
     method: "GET",
     headers: config.headers,
   })
-    .then((res) => res.json())
+    .then((res) => {
+      if (res.ok) {
+        res.json();
+      }
+    })
     .catch((err) => {
       console.log(err);
     });
@@ -62,7 +69,11 @@ export const sendCard = (name, link) => {
       link: link,
     }),
   })
-    .then((res) => res.json())
+    .then((res) => {
+      if (res.ok) {
+        res.json();
+      }
+    })
     .catch((err) => {
       console.log(err);
     });
@@ -73,7 +84,11 @@ export const deleteCard = (cardId) => {
     method: "DELETE",
     headers: config.headers,
   })
-    .then((res) => res.json())
+    .then((res) => {
+      if (res.ok) {
+        res.json();
+      }
+    })
     .catch((err) => {
       console.log(err);
     });
@@ -84,7 +99,11 @@ export const sendLike = (cardId) => {
     method: "PUT",
     headers: config.headers,
   })
-    .then((res) => res.json())
+    .then((res) => {
+      if (res.ok) {
+        res.json();
+      }
+    })
     .catch((err) => {
       console.log(err);
     });
@@ -95,7 +114,11 @@ export const deleteLike = (cardId) => {
     method: "DELETE",
     headers: config.headers,
   })
-    .then((res) => res.json())
+    .then((res) => {
+      if (res.ok) {
+        res.json();
+      }
+    })
     .catch((err) => {
       console.log(err);
     });
