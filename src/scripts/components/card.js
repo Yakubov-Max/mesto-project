@@ -1,12 +1,7 @@
 import { popupAdd, closePopup } from "./modal.js";
-import { handleLikeClick, updateSubmitButtonState } from "./utils.js";
+import { updateSubmitButtonState } from "./utils.js";
 import { handleImageClick } from "./modal.js";
-import {
-  getInitialCards,
-  getProfileInfo,
-  sendCard,
-  deleteCard,
-} from "./api.js";
+import { sendCard, deleteCard, sendLike, deleteLike } from "./api.js";
 export { addForm, submitCard };
 
 const addForm = popupAdd.querySelector(".popup__form");
@@ -18,28 +13,23 @@ const elementsContainer = document.querySelector(".elements");
 function createCard(cardData, removable = false) {
   const cardTemplate = document.querySelector("#element").content;
   const cardElement = cardTemplate.querySelector(".element").cloneNode(true);
-  cardElement.querySelector(".element__image").src = cardData.cardLink;
-  cardElement.querySelector(".element__image").alt = cardData.cardName;
+  const cardImage = cardElement.querySelector(".element__image");
+  const cardLikeButton = cardElement.querySelector(".element__like-button");
+  cardImage.src = cardData.cardLink;
+  cardImage.alt = cardData.cardName;
   cardElement.setAttribute("id", cardData.cardId);
   cardElement.querySelector(".element__title").textContent = cardData.cardName;
-  cardElement
-    .querySelector(".element__like-button")
-    .addEventListener("click", handleLikeClick);
+  cardLikeButton.addEventListener("click", handleLikeClick);
   if (cardData.liked) {
-    cardElement
-      .querySelector(".element__like-button")
-      .classList.add("element__like-button_active");
+    cardLikeButton.classList.add("element__like-button_active");
   }
   cardElement.querySelector(".element__like-count").textContent =
     cardData.cardLikes;
-  cardElement
-    .querySelector(".element__image")
-    .addEventListener("click", handleImageClick);
+  cardImage.addEventListener("click", handleImageClick);
   if (removable) {
     cardElement
-    .querySelector(".element__delete-button")
-    .addEventListener("click", handleCardDeleteClick);
-
+      .querySelector(".element__delete-button")
+      .addEventListener("click", handleCardDeleteClick);
   } else {
     cardElement.querySelector(".element__delete-button").style.display = "none";
   }
@@ -49,62 +39,49 @@ function createCard(cardData, removable = false) {
 // submit card form
 function submitCard(evt) {
   evt.preventDefault();
-  let cardData = {
+  const cardData = {
     cardName: cardName.value,
     cardLink: cardLink.value,
   };
-  updateSubmitButtonState(popupAdd)
+  updateSubmitButtonState(popupAdd);
   let cardToSubmit = sendCard(cardData.cardName, cardData.cardLink);
   cardToSubmit
     .then((card) => {
       let cardData = extractCardData(card);
       let submitedCard = createCard(cardData, true);
-      elementsContainer.append(submitedCard);
+      elementsContainer.prepend(submitedCard);
+      addForm.reset();
+      closePopup(popupAdd);
     })
-    .catch((err) => console.log(err))
-    .finally(updateSubmitButtonState(popupAdd))
-  addForm.reset();
-  closePopup(popupAdd);
+    .catch((err) => console.log(`Ошибка: ${err}`))
+    .finally(updateSubmitButtonState(popupAdd));
 }
 
 function handleCardDeleteClick(evt) {
   const element = evt.target.closest(".element");
-  deleteCard(element.id);
-  element.remove();
+  deleteCard(element.id)
+    .then((res) => {
+      element.remove();
+    })
+    .catch((err) => console.log(`Ошибка: ${err}`));
 }
 
 // download and fill cards
 
-export function fillDownloadedCards() {
-  let initialCards = getInitialCards();
-  initialCards
-    .then((cards) => {
-      cards.forEach((card) => {
-        let cardData = extractCardData(card);
-        // check card owner id and profile id
-        getProfileInfo()
-          .then((profileInfo) => {
-            card.likes.forEach((user) => {
-              if (user._id === profileInfo._id) {
-                cardData.liked = true;
-              }
-            });
-            let downloadedCard;
-            if (profileInfo._id === card.owner._id) {
-              downloadedCard = createCard(cardData, true);
-            } else {
-              downloadedCard = createCard(cardData, false);
-            }
-            elementsContainer.append(downloadedCard);
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-      });
-    })
-    .catch((err) => {
-      console.log(err);
+export function fillDownloadedCards(initialCards) {
+  initialCards.forEach((card) => {
+    let cardData = extractCardData(card);
+    card.likes.forEach((user) => {
+      if (user._id === PROFILE_ID) {
+        cardData.liked = true;
+      }
     });
+    let downloadedCard;
+    PROFILE_ID === card.owner._id
+      ? (downloadedCard = createCard(cardData, true))
+      : (downloadedCard = createCard(cardData, false));
+    elementsContainer.prepend(downloadedCard);
+  });
 }
 
 function extractCardData(card) {
@@ -115,4 +92,26 @@ function extractCardData(card) {
     cardLikes: card.likes.length,
     liked: false,
   };
+}
+
+function handleLikeClick(evt) {
+  const cardId = evt.target.closest(".element").id;
+
+  if (evt.target.classList.contains("element__like-button_active")) {
+    evt.target.classList.remove("element__like-button_active");
+    deleteLike(cardId).then((cardData) =>
+      updateLikeCount(cardId, cardData.likes)
+    );
+  } else {
+    evt.target.classList.add("element__like-button_active");
+    sendLike(cardId).then((cardData) =>
+      updateLikeCount(cardId, cardData.likes)
+    );
+  }
+}
+
+function updateLikeCount(cardId, likesArr) {
+  document
+    .getElementById(cardId)
+    .querySelector(".element__like-count").textContent = likesArr.length;
 }

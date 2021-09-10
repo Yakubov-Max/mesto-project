@@ -8,20 +8,17 @@ const profileAbout = document.querySelector(".profile__occupation");
 
 const avatarFormInput = document.querySelector(".popup__avatar-url");
 
-export function updateProfileInfo() {
-  let profileInfo = getProfileInfo();
-  profileInfo.then((profileInfo) => {
-    profileAvatar.src = profileInfo.avatar;
-    profileName.textContent = profileInfo.name;
-    profileAbout.textContent = profileInfo.about;
-  });
+export function updateProfileInfo(profileInfo) {
+  profileAvatar.src = profileInfo.avatar;
+  profileName.textContent = profileInfo.name;
+  profileAbout.textContent = profileInfo.about;
 }
 
 export function submitFormAvatar(evt) {
   evt.preventDefault();
   let avatarUrl = avatarFormInput.value;
   updateSubmitButtonState(popupAvatar)
-  submitProfileAvatar(avatarUrl).finally(updateSubmitButtonState(popupAvatar));
+  submitProfileAvatar(avatarUrl).finally(() => updateSubmitButtonState(popupAvatar));
   profileAvatar.src = avatarUrl;
   closePopup(popupAvatar);
 }

@@ -9,15 +9,11 @@ export const getProfileInfo = () => {
   return fetch(`${config.baseUrl}/users/me`, {
     method: "GET",
     headers: config.headers,
-  })
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+  }).then((res) => {
+    if (res.ok) {
+      return res.json();
+    }
+  });
 };
 
 export const updateProfileInfo = (name, about) => {
@@ -28,8 +24,10 @@ export const updateProfileInfo = (name, about) => {
       name: name,
       about: about,
     }),
-  }).catch((err) => {
-    console.log(err);
+  }).then((res) => {
+    if (res.ok) {
+      return res.json();
+    }
   });
 };
 
@@ -40,8 +38,10 @@ export const submitProfileAvatar = (url) => {
     body: JSON.stringify({
       avatar: url,
     }),
-  }).catch((err) => {
-    console.log(err);
+  }).then((res) => {
+    if (res.ok) {
+      return res.json();
+    }
   });
 };
 
@@ -49,15 +49,11 @@ export const getInitialCards = () => {
   return fetch(`${config.baseUrl}/cards/`, {
     method: "GET",
     headers: config.headers,
-  })
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+  }).then((res) => {
+    if (res.ok) {
+      return res.json();
+    }
+  });
 };
 
 export const sendCard = (name, link) => {
@@ -68,58 +64,42 @@ export const sendCard = (name, link) => {
       name: name,
       link: link,
     }),
-  })
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+  }).then((res) => {
+    if (res.ok) {
+      return res.json();
+    }
+  });
 };
 
 export const deleteCard = (cardId) => {
-  fetch(`${config.baseUrl}/cards/${cardId}`, {
+  return fetch(`${config.baseUrl}/cards/${cardId}`, {
     method: "DELETE",
     headers: config.headers,
-  })
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+  }).then((res) => {
+    if (res.ok) {
+      return res.json();
+    }
+  });
 };
 
 export const sendLike = (cardId) => {
   return fetch(`${config.baseUrl}/cards/likes/${cardId}`, {
     method: "PUT",
     headers: config.headers,
-  })
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+  }).then((res) => {
+    if (res.ok) {
+      return res.json();
+    }
+  });
 };
 
 export const deleteLike = (cardId) => {
   return fetch(`${config.baseUrl}/cards/likes/${cardId}`, {
     method: "DELETE",
     headers: config.headers,
-  })
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+  }).then((res) => {
+    if (res.ok) {
+      return res.json();
+    }
+  });
 };

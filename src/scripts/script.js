@@ -23,6 +23,7 @@ import {
 } from "./components/modal.js";
 import { enableValidation, resetValidation } from "./components/validate.js";
 import { updateProfileInfo, submitFormAvatar } from "./components/profile.js";
+import { getProfileInfo, getInitialCards } from "./components/api.js";
 
 
 editForm.addEventListener("submit", submitFormProfile);
@@ -51,4 +52,13 @@ enableValidation({
   errorClass: "popup__error_active",
 });
 
-Promise.all([updateProfileInfo(), fillDownloadedCards()]).catch(err => console.log(err))
+Promise.all([getProfileInfo(), getInitialCards()])
+.then((values) => {
+  window.PROFILE_ID = values[0]._id
+  const profileInfo = values[0]
+  const cardInfo = values[1]
+  updateProfileInfo(profileInfo)
+  fillDownloadedCards(cardInfo)
+
+}).catch(err => console.log(err))
+
