@@ -5,15 +5,19 @@ const config = {
     "Content-Type": "application/json",
   },
 };
+
+const _getResponseData = (res) => {
+  if (!res.ok) {
+    return Promise.reject(`Ошибка: ${res.status}`);
+  }
+  return res.json();
+};
+
 export const getProfileInfo = () => {
   return fetch(`${config.baseUrl}/users/me`, {
     method: "GET",
     headers: config.headers,
-  }).then((res) => {
-    if (res.ok) {
-      return res.json();
-    }
-  });
+  }).then(_getResponseData);
 };
 
 export const updateProfileInfo = (name, about) => {
@@ -24,11 +28,7 @@ export const updateProfileInfo = (name, about) => {
       name: name,
       about: about,
     }),
-  }).then((res) => {
-    if (res.ok) {
-      return res.json();
-    }
-  });
+  }).then(_getResponseData);
 };
 
 export const submitProfileAvatar = (url) => {
@@ -38,22 +38,14 @@ export const submitProfileAvatar = (url) => {
     body: JSON.stringify({
       avatar: url,
     }),
-  }).then((res) => {
-    if (res.ok) {
-      return res.json();
-    }
-  });
+  }).then(_getResponseData);
 };
 
 export const getInitialCards = () => {
   return fetch(`${config.baseUrl}/cards/`, {
     method: "GET",
     headers: config.headers,
-  }).then((res) => {
-    if (res.ok) {
-      return res.json();
-    }
-  });
+  }).then(_getResponseData);
 };
 
 export const sendCard = (name, link) => {
@@ -64,42 +56,26 @@ export const sendCard = (name, link) => {
       name: name,
       link: link,
     }),
-  }).then((res) => {
-    if (res.ok) {
-      return res.json();
-    }
-  });
+  }).then(_getResponseData);
 };
 
 export const deleteCard = (cardId) => {
   return fetch(`${config.baseUrl}/cards/${cardId}`, {
     method: "DELETE",
     headers: config.headers,
-  }).then((res) => {
-    if (res.ok) {
-      return res.json();
-    }
-  });
+  }).then(_getResponseData);
 };
 
 export const sendLike = (cardId) => {
   return fetch(`${config.baseUrl}/cards/likes/${cardId}`, {
     method: "PUT",
     headers: config.headers,
-  }).then((res) => {
-    if (res.ok) {
-      return res.json();
-    }
-  });
+  }).then(_getResponseData);
 };
 
 export const deleteLike = (cardId) => {
   return fetch(`${config.baseUrl}/cards/likes/${cardId}`, {
     method: "DELETE",
     headers: config.headers,
-  }).then((res) => {
-    if (res.ok) {
-      return res.json();
-    }
-  });
+  }).then(_getResponseData);
 };
