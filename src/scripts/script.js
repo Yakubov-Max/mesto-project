@@ -54,11 +54,10 @@ enableValidation({
 
 Promise.all([getProfileInfo(), getInitialCards()])
 .then((values) => {
-  window.PROFILE_ID = values[0]._id
-  const profileInfo = values[0]
-  const cardInfo = values[1]
+  const [profileInfo, cardInfo] = values
+  const profileId = profileInfo._id
   updateProfileInfo(profileInfo)
-  fillDownloadedCards(cardInfo)
+  fillDownloadedCards(cardInfo, profileId)
 
 }).catch(err => console.log(err))
 

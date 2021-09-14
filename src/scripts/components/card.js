@@ -68,16 +68,16 @@ function handleCardDeleteClick(evt) {
 
 // download and fill cards
 
-export function fillDownloadedCards(initialCards) {
+export function fillDownloadedCards(initialCards, profileId) {
   initialCards.forEach((card) => {
     const cardData = extractCardData(card);
     card.likes.forEach((user) => {
-      if (user._id === PROFILE_ID) {
+      if (user._id === profileId) {
         cardData.liked = true;
       }
     });
     let downloadedCard;
-    PROFILE_ID === card.owner._id
+    profileId === card.owner._id
       ? (downloadedCard = createCard(cardData, true))
       : (downloadedCard = createCard(cardData, false));
     elementsContainer.prepend(downloadedCard);
