@@ -44,11 +44,11 @@ function submitCard(evt) {
     cardLink: cardLink.value,
   };
   updateSubmitButtonState(popupAdd);
-  let cardToSubmit = sendCard(cardData.cardName, cardData.cardLink);
+  const cardToSubmit = sendCard(cardData.cardName, cardData.cardLink);
   cardToSubmit
     .then((card) => {
-      let cardData = extractCardData(card);
-      let submitedCard = createCard(cardData, true);
+      const cardData = extractCardData(card);
+      const submitedCard = createCard(cardData, true);
       elementsContainer.prepend(submitedCard);
       addForm.reset();
       closePopup(popupAdd);
@@ -70,7 +70,7 @@ function handleCardDeleteClick(evt) {
 
 export function fillDownloadedCards(initialCards) {
   initialCards.forEach((card) => {
-    let cardData = extractCardData(card);
+    const cardData = extractCardData(card);
     card.likes.forEach((user) => {
       if (user._id === PROFILE_ID) {
         cardData.liked = true;

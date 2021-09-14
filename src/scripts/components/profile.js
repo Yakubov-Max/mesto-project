@@ -1,4 +1,4 @@
-import { getProfileInfo, submitProfileAvatar } from "./api.js";
+import { submitProfileAvatar } from "./api.js";
 import { closePopup, popupAvatar } from "./modal.js";
 import {updateSubmitButtonState} from "./utils.js"
 
@@ -16,7 +16,7 @@ export function updateProfileInfo(profileInfo) {
 
 export function submitFormAvatar(evt) {
   evt.preventDefault();
-  let avatarUrl = avatarFormInput.value;
+  const avatarUrl = avatarFormInput.value;
   updateSubmitButtonState(popupAvatar)
   submitProfileAvatar(avatarUrl).finally(() => updateSubmitButtonState(popupAvatar));
   profileAvatar.src = avatarUrl;
