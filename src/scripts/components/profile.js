@@ -16,9 +16,14 @@ export function updateProfileInfo(profileInfo) {
 
 export function submitFormAvatar(evt) {
   evt.preventDefault();
+  let isLoading = true;
   const avatarUrl = avatarFormInput.value;
-  updateSubmitButtonState(popupAvatar)
-  submitProfileAvatar(avatarUrl).finally(() => updateSubmitButtonState(popupAvatar));
-  profileAvatar.src = avatarUrl;
-  closePopup(popupAvatar);
+  updateSubmitButtonState(popupAvatar, isLoading)
+  submitProfileAvatar(avatarUrl)
+  .finally(() => {
+    isLoading = false
+    updateSubmitButtonState(popupAvatar, isLoading)
+    profileAvatar.src = avatarUrl;
+    closePopup(popupAvatar);
+  });
 }

@@ -1,8 +1,8 @@
-export function updateSubmitButtonState(popupElement) {
+export function updateSubmitButtonState(popupElement, isLoading) {
   const saveButton = popupElement.querySelector(".popup__save-button")
-  if (saveButton.value === "Сохранить") {
-    saveButton.value = "Сохранение..."
+  if (isLoading) {
+    saveButton.textContent = "Сохранение..."
   } else {
-    saveButton.value = "Сохранить"
+    saveButton.textContent = "Сохранить"
   }
 }

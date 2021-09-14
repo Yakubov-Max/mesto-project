@@ -39,11 +39,12 @@ function createCard(cardData, removable = false) {
 // submit card form
 function submitCard(evt) {
   evt.preventDefault();
+  let isLoading = true;
   const cardData = {
     cardName: cardName.value,
     cardLink: cardLink.value,
   };
-  updateSubmitButtonState(popupAdd);
+  updateSubmitButtonState(popupAdd, isLoading);
   const cardToSubmit = sendCard(cardData.cardName, cardData.cardLink);
   cardToSubmit
     .then((card) => {
@@ -54,7 +55,10 @@ function submitCard(evt) {
       closePopup(popupAdd);
     })
     .catch((err) => console.log(`Ошибка: ${err}`))
-    .finally(updateSubmitButtonState(popupAdd));
+    .finally(() => {
+      isLoading = false
+      updateSubmitButtonState(popupAdd, isLoading)
+    } );
 }
 
 function handleCardDeleteClick(evt) {
