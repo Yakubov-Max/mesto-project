@@ -1,6 +1,6 @@
 import { submitProfileAvatar } from "./api.js";
 import { closePopup, popupAvatar } from "./modal.js";
-import {updateSubmitButtonState} from "./utils.js"
+import { updateSubmitButtonState } from "./utils.js";
 
 const profileName = document.querySelector(".profile__name");
 const profileAvatar = document.querySelector(".profile__avatar");
@@ -18,12 +18,13 @@ export function submitFormAvatar(evt) {
   evt.preventDefault();
   let isLoading = true;
   const avatarUrl = avatarFormInput.value;
-  updateSubmitButtonState(popupAvatar, isLoading)
+  updateSubmitButtonState(popupAvatar, isLoading);
   submitProfileAvatar(avatarUrl)
-  .finally(() => {
-    isLoading = false
-    updateSubmitButtonState(popupAvatar, isLoading)
-    profileAvatar.src = avatarUrl;
-    closePopup(popupAvatar);
-  });
+    .catch((err) => console.log(`Ошибка: ${err}`))
+    .finally(() => {
+      isLoading = false;
+      updateSubmitButtonState(popupAvatar, isLoading);
+      profileAvatar.src = avatarUrl;
+      closePopup(popupAvatar);
+    });
 }

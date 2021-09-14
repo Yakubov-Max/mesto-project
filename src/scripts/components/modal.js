@@ -118,11 +118,13 @@ function submitFormProfile(evt) {
   evt.preventDefault();
   let isLoading = true;
   updateSubmitButtonState(popupEdit, isLoading);
-  updateProfileInfo(nameInput.value, aboutInput.value).finally(() => {
-    isLoading = false;
-    updateSubmitButtonState(popupEdit, isLoading);
-    profileName.textContent = nameInput.value;
-    profileAbout.textContent = aboutInput.value;
-    closeProfilePopup();
-  });
+  updateProfileInfo(nameInput.value, aboutInput.value)
+    .catch((err) => console.log(`Ошибка: ${err}`))
+    .finally(() => {
+      isLoading = false;
+      updateSubmitButtonState(popupEdit, isLoading);
+      profileName.textContent = nameInput.value;
+      profileAbout.textContent = aboutInput.value;
+      closeProfilePopup();
+    });
 }

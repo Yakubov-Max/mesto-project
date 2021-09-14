@@ -51,23 +51,21 @@ function submitCard(evt) {
       const cardData = extractCardData(card);
       const submitedCard = createCard(cardData, true);
       elementsContainer.prepend(submitedCard);
-      addForm.reset();
-      closePopup(popupAdd);
     })
     .catch((err) => console.log(`Ошибка: ${err}`))
     .finally(() => {
-      isLoading = false
-      updateSubmitButtonState(popupAdd, isLoading)
-    } );
+      addForm.reset();
+      closePopup(popupAdd);
+      isLoading = false;
+      updateSubmitButtonState(popupAdd, isLoading);
+    });
 }
 
 function handleCardDeleteClick(evt) {
   const element = evt.target.closest(".element");
   deleteCard(element.id)
-    .then((res) => {
-      element.remove();
-    })
-    .catch((err) => console.log(`Ошибка: ${err}`));
+    .catch((err) => console.log(`Ошибка: ${err}`))
+    .finally(() => element.remove());
 }
 
 // download and fill cards
@@ -103,14 +101,14 @@ function handleLikeClick(evt) {
 
   if (evt.target.classList.contains("element__like-button_active")) {
     evt.target.classList.remove("element__like-button_active");
-    deleteLike(cardId).then((cardData) =>
-      updateLikeCount(cardId, cardData.likes)
-    );
+    deleteLike(cardId)
+      .then((cardData) => updateLikeCount(cardId, cardData.likes))
+      .catch((err) => console.log(`Ошибка: ${err}`));
   } else {
     evt.target.classList.add("element__like-button_active");
-    sendLike(cardId).then((cardData) =>
-      updateLikeCount(cardId, cardData.likes)
-    );
+    sendLike(cardId)
+      .then((cardData) => updateLikeCount(cardId, cardData.likes))
+      .catch((err) => console.log(`Ошибка: ${err}`));
   }
 }
 

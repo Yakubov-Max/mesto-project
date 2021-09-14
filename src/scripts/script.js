@@ -25,16 +25,15 @@ import { enableValidation, resetValidation } from "./components/validate.js";
 import { updateProfileInfo, submitFormAvatar } from "./components/profile.js";
 import { getProfileInfo, getInitialCards } from "./components/api.js";
 
-
 editForm.addEventListener("submit", submitFormProfile);
 addForm.addEventListener("submit", submitCard);
 addButton.addEventListener("click", () => {
-  resetValidation(popupAdd)
-  openPopup(popupAdd)
+  resetValidation(popupAdd);
+  openPopup(popupAdd);
 });
 editButton.addEventListener("click", () => {
-  openProfilePopup()
-  resetValidation(popupEdit)
+  openProfilePopup();
+  resetValidation(popupEdit);
 });
 popupAddCloseButton.addEventListener("click", () => closePopup(popupAdd));
 popupCloseButton.addEventListener("click", () => closePopup(imagePopup));
@@ -53,11 +52,10 @@ enableValidation({
 });
 
 Promise.all([getProfileInfo(), getInitialCards()])
-.then((values) => {
-  const [profileInfo, cardInfo] = values
-  const profileId = profileInfo._id
-  updateProfileInfo(profileInfo)
-  fillDownloadedCards(cardInfo, profileId)
-
-}).catch(err => console.log(err))
-
+  .then((values) => {
+    const [profileInfo, cardInfo] = values;
+    const profileId = profileInfo._id;
+    updateProfileInfo(profileInfo);
+    fillDownloadedCards(cardInfo, profileId);
+  })
+  .catch(err => console.log(`Ошибка: ${err}`));

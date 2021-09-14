@@ -105,21 +105,23 @@ function hasInvalidInput(inputList) {
 function toggleButtonState(inputList, buttonElement, inactiveButtonClass) {
   if (hasInvalidInput(inputList)) {
     buttonElement.classList.add(inactiveButtonClass);
-    buttonElement.disabled = true
+    buttonElement.disabled = true;
   } else {
     buttonElement.classList.remove(inactiveButtonClass);
-    buttonElement.disabled = false
+    buttonElement.disabled = false;
   }
 }
 
 export function resetValidation(popup) {
-  const buttonElement = popup.querySelector('.popup__save-button');
-  buttonElement.classList.add('popup__save-button_disabled');
+  const buttonElement = popup.querySelector(".popup__save-button");
+  buttonElement.classList.add("popup__save-button_disabled");
   popup.querySelectorAll(".popup__error_active").forEach((element) => {
-    element.classList.remove("popup__error_active")
-    element.textContent = ""
-  })
-  popup.querySelectorAll(".popup__text-input_error_active").forEach((element) => {
-    element.classList.remove("popup__text-input_error_active")
-  })
+    element.classList.remove("popup__error_active");
+    element.textContent = "";
+  });
+  popup
+    .querySelectorAll(".popup__text-input_error_active")
+    .forEach((element) => {
+      element.classList.remove("popup__text-input_error_active");
+    });
 }
