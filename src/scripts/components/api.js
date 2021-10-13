@@ -4,7 +4,7 @@ export default class Api {
     this._headers = options.headers
   }
 
-  _getResponseData = (res) => {
+  _getResponseData(res) {
     if (!res.ok) {
       return Promise.reject(`Ошибка: ${res.status}`);
     }
@@ -15,14 +15,14 @@ export default class Api {
     return fetch(`${this._baseUrl}/cards/`, {
       method: "GET",
       headers: this._headers,
-    }).then();
+    }).then((res) => this._getResponseData(res));
   }
 
   getProfileInfo() {
     return fetch(`${this._baseUrl}/users/me`, {
       method: "GET",
       headers: this._headers,
-    }).then(_getResponseData);
+    }).then((res) => this._getResponseData(res));
   }
 
   updateProfileInfo = (name, about) => {
@@ -33,7 +33,7 @@ export default class Api {
         name: name,
         about: about,
       }),
-    }).then(_getResponseData);
+    }).then((res) => this._getResponseData(res));
   };
 
   submitProfileAvatar = (url) => {
@@ -43,7 +43,7 @@ export default class Api {
       body: JSON.stringify({
         avatar: url,
       }),
-    }).then(_getResponseData);
+    }).then((res) => this._getResponseData(res));
   };
 
   sendCard = (name, link) => {
@@ -54,27 +54,27 @@ export default class Api {
         name: name,
         link: link,
       }),
-    }).then(_getResponseData);
+    }).then((res) => this._getResponseData(res));
   };
 
   deleteCard = (cardId) => {
     return fetch(`${this._baseUrl}/cards/${cardId}`, {
       method: "DELETE",
-      headers: this._headers
-    }).then(_getResponseData);
+      headers: this._headers,
+    }).then((res) => this._getResponseData(res));
   };
 
   sendLike = (cardId) => {
     return fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
       method: "PUT",
       headers: this._headers,
-    }).then(_getResponseData);
+    }).then((res) => this._getResponseData(res));
   };
 
   deleteLike = (cardId) => {
     return fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
       method: "DELETE",
       headers: this._headers,
-    }).then(_getResponseData);
+    }).then((res) => this._getResponseData(res));
   };
 }

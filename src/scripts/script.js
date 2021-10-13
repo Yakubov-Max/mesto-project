@@ -1,6 +1,8 @@
 import "../pages/index.css";
+import Section from "./components/Section.js";
 
-import { submitCard, addForm, fillDownloadedCards } from "./components/card.js";
+import { submitCard, addForm } from "./components/Card.js";
+import Card from "./components/Card.js";
 import {
   editForm,
   submitFormProfile,
@@ -51,17 +53,6 @@ enableValidation({
   errorClass: "popup__error_active",
 });
 
-
-
-// Promise.all([api.getProfileInfo(), api.getInitialCards()])
-//   .then((values) => {
-//     const [profileInfo, cardInfo] = values;
-//     const profileId = profileInfo._id;
-//     updateProfileInfo(profileInfo);
-//     fillDownloadedCards(cardInfo, profileId);
-//   })
-//   .catch((err) => console.log(`Ошибка: ${err}`));
-
 export const api = new Api({
   baseUrl: "https://nomoreparties.co/v1/plus-cohort-1",
   headers: {
@@ -70,4 +61,26 @@ export const api = new Api({
   },
 });
 
-console.log(api.getInitialCards())
+Promise.all([api.getProfileInfo(), api.getInitialCards()])
+  .then((values) => {
+    const [profileInfo, cardInfo] = values;
+    const profileId = profileInfo._id;
+    const cardList = new Section(
+      {
+        data: cardInfo,
+
+        renderer: (item) => {
+          const card = new Card(item, "#element", profileId);
+          const cardElement = card.generate();
+          cardList.setItem(cardElement);
+        },
+      },
+      document.querySelector(".elements")
+    );
+
+    cardList.renderItems();
+
+    updateProfileInfo(profileInfo);
+    // fillDownloadedCards(cardInfo, profileId);
+  })
+  .catch((err) => console.log(`Ошибка: ${err}`));
