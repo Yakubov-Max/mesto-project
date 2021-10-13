@@ -1,6 +1,6 @@
-import { submitProfileAvatar } from "./api.js";
 import { closePopup, popupAvatar } from "./modal.js";
 import { updateSubmitButtonState } from "./utils.js";
+import { api } from '../script.js'
 
 const profileName = document.querySelector(".profile__name");
 const profileAvatar = document.querySelector(".profile__avatar");
@@ -19,7 +19,7 @@ export function submitFormAvatar(evt) {
   let isLoading = true;
   const avatarUrl = avatarFormInput.value;
   updateSubmitButtonState(popupAvatar, isLoading);
-  submitProfileAvatar(avatarUrl)
+  api.submitProfileAvatar(avatarUrl)
     .catch((err) => console.log(`Ошибка: ${err}`))
     .finally(() => {
       isLoading = false;

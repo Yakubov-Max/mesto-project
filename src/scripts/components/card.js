@@ -1,7 +1,7 @@
 import { popupAdd, closePopup } from "./modal.js";
 import { updateSubmitButtonState } from "./utils.js";
 import { handleImageClick } from "./modal.js";
-import { sendCard, deleteCard, sendLike, deleteLike } from "./api.js";
+import { api } from "../script.js"
 export { addForm, submitCard };
 
 const addForm = popupAdd.querySelector(".popup__form");
@@ -45,7 +45,7 @@ function submitCard(evt) {
     cardLink: cardLink.value,
   };
   updateSubmitButtonState(popupAdd, isLoading);
-  const cardToSubmit = sendCard(cardData.cardName, cardData.cardLink);
+  const cardToSubmit = api.sendCard(cardData.cardName, cardData.cardLink);
   cardToSubmit
     .then((card) => {
       const cardData = extractCardData(card);
@@ -63,7 +63,7 @@ function submitCard(evt) {
 
 function handleCardDeleteClick(evt) {
   const element = evt.target.closest(".element");
-  deleteCard(element.id)
+  api.deleteCard(element.id)
     .catch((err) => console.log(`Ошибка: ${err}`))
     .finally(() => element.remove());
 }
@@ -101,12 +101,12 @@ function handleLikeClick(evt) {
 
   if (evt.target.classList.contains("element__like-button_active")) {
     evt.target.classList.remove("element__like-button_active");
-    deleteLike(cardId)
+    api.deleteLike(cardId)
       .then((cardData) => updateLikeCount(cardId, cardData.likes))
       .catch((err) => console.log(`Ошибка: ${err}`));
   } else {
     evt.target.classList.add("element__like-button_active");
-    sendLike(cardId)
+    api.sendLike(cardId)
       .then((cardData) => updateLikeCount(cardId, cardData.likes))
       .catch((err) => console.log(`Ошибка: ${err}`));
   }

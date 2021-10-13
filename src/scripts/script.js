@@ -23,7 +23,7 @@ import {
 } from "./components/modal.js";
 import { enableValidation, resetValidation } from "./components/validate.js";
 import { updateProfileInfo, submitFormAvatar } from "./components/profile.js";
-import { getProfileInfo, getInitialCards } from "./components/api.js";
+import Api from "./components/Api.js";
 
 editForm.addEventListener("submit", submitFormProfile);
 addForm.addEventListener("submit", submitCard);
@@ -51,11 +51,23 @@ enableValidation({
   errorClass: "popup__error_active",
 });
 
-Promise.all([getProfileInfo(), getInitialCards()])
-  .then((values) => {
-    const [profileInfo, cardInfo] = values;
-    const profileId = profileInfo._id;
-    updateProfileInfo(profileInfo);
-    fillDownloadedCards(cardInfo, profileId);
-  })
-  .catch(err => console.log(`Ошибка: ${err}`));
+
+
+// Promise.all([api.getProfileInfo(), api.getInitialCards()])
+//   .then((values) => {
+//     const [profileInfo, cardInfo] = values;
+//     const profileId = profileInfo._id;
+//     updateProfileInfo(profileInfo);
+//     fillDownloadedCards(cardInfo, profileId);
+//   })
+//   .catch((err) => console.log(`Ошибка: ${err}`));
+
+export const api = new Api({
+  baseUrl: "https://nomoreparties.co/v1/plus-cohort-1",
+  headers: {
+    authorization: "a09daf17-3aa6-4f0e-82ba-81e647b9b7db",
+    "Content-Type": "application/json",
+  },
+});
+
+console.log(api.getInitialCards())
