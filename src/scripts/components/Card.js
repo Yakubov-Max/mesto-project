@@ -1,10 +1,4 @@
-import { updateSubmitButtonState } from "./utils.js";
-import { handleImageClick } from "./modal.js";
 import { api } from "../script.js";
-
-// const cardName = addForm.querySelector(".popup__add-card");
-// const cardLink = addForm.querySelector(".popup__add-link");
-const elementsContainer = document.querySelector(".elements");
 
 export default class Card {
   constructor(data, cardSelector, profileId, { handleCardClick }) {

@@ -1,5 +1,3 @@
-import Card from "./Card.js";
-
 export default class Section {
   constructor({ renderer }, containerselector) {
     this._renderer = renderer;
@@ -16,13 +14,12 @@ export default class Section {
 
   renderItems(items) {
     this.clear();
-    items.forEach((item) => {
-      this._renderer(item, this._profileId);
+    items.reverse().forEach((item) => {
+      this._renderer(item, this.profileId);
     });
   }
 
   setProfileId(profileId) {
-    this.profileId = profileId
+    this.profileId = profileId;
   }
 }
-
