@@ -1,4 +1,3 @@
-import { closePopup, popupAvatar } from "./modal.js";
 import { updateSubmitButtonState } from "./utils.js";
 import { api } from '../script.js'
 

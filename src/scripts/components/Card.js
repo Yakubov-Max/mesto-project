@@ -1,16 +1,13 @@
-import { popupAdd, closePopup } from "./modal.js";
 import { updateSubmitButtonState } from "./utils.js";
 import { handleImageClick } from "./modal.js";
 import { api } from "../script.js";
-export { addForm, submitCard };
 
-const addForm = popupAdd.querySelector(".popup__form");
-const cardName = addForm.querySelector(".popup__add-card");
-const cardLink = addForm.querySelector(".popup__add-link");
+// const cardName = addForm.querySelector(".popup__add-card");
+// const cardLink = addForm.querySelector(".popup__add-link");
 const elementsContainer = document.querySelector(".elements");
 
 export default class Card {
-  constructor(data, cardSelector, profileId) {
+  constructor(data, cardSelector, profileId, { handleCardClick }) {
     this._name = data.name;
     this._link = data.link;
     this._id = data._id;
@@ -18,7 +15,7 @@ export default class Card {
     this._liked = data.liked;
     this._owner = data.owner;
     this._profileId = profileId;
-    // this._handleCardClick = handleCardClick;
+    this._handleCardClick = handleCardClick;
     this._cardSelector = cardSelector;
   }
 
@@ -36,6 +33,7 @@ export default class Card {
     this._setEventListeners();
 
     const cardImage = this._element.querySelector(".element__image");
+
     const cardLikeButton = this._element.querySelector(".element__like-button");
 
     cardImage.src = this._link;
@@ -81,7 +79,11 @@ export default class Card {
         this._handleLikeClick();
       });
 
-    // cardImage.addEventListener("click", _handleImageClick);
+    const cardImage = this._element.querySelector(".element__image");
+
+    cardImage.addEventListener("click", () => {
+      this._handleCardClick(this._name, this._link);
+    });
   }
 
   _handleCardDeleteClick() {
@@ -115,47 +117,4 @@ export default class Card {
       .getElementById(cardId)
       .querySelector(".element__like-count").textContent = res.likes.length;
   }
-
-  // _fillDownloadedCards(initialCards, profileId) {
-  //   initialCards.forEach((card) => {
-  //     const cardData = extractCardData(card);
-  //     card.likes.forEach((user) => {
-  //       if (user._id === profileId) {
-  //         cardData.liked = true;
-  //       }
-  //     });
-  //     let downloadedCard;
-  //     profileId === card.owner._id
-  //       ? (downloadedCard = createCard(cardData, true))
-  //       : (downloadedCard = createCard(cardData, false));
-  //     elementsContainer.prepend(downloadedCard);
-  //   });
-  // }
-}
-
-// add card function and initial cards
-
-// submit card form
-function submitCard(evt) {
-  evt.preventDefault();
-  let isLoading = true;
-  const cardData = {
-    cardName: cardName.value,
-    cardLink: cardLink.value,
-  };
-  updateSubmitButtonState(popupAdd, isLoading);
-  const cardToSubmit = api.sendCard(cardData.cardName, cardData.cardLink);
-  cardToSubmit
-    .then((card) => {
-      const cardData = extractCardData(card);
-      const submitedCard = createCard(cardData, true);
-      elementsContainer.prepend(submitedCard);
-    })
-    .catch((err) => console.log(`Ошибка: ${err}`))
-    .finally(() => {
-      addForm.reset();
-      closePopup(popupAdd);
-      isLoading = false;
-      updateSubmitButtonState(popupAdd, isLoading);
-    });
 }

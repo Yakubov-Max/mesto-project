@@ -1,24 +1,28 @@
 import Card from "./Card.js";
 
 export default class Section {
-  constructor({ data, renderer }, containerselector) {
+  constructor({ renderer }, containerselector) {
     this._renderer = renderer;
-    this._renderedItems = data;
     this._containerselector = containerselector;
   }
 
   setItem(element) {
-    this._containerselector.append(element);
+    this._containerselector.prepend(element);
   }
 
   clear() {
     this._containerselector.innnerHTML = "";
   }
 
-  renderItems() {
+  renderItems(items) {
     this.clear();
-    this._renderedItems.forEach((item) => {
-      this._renderer(item);
+    items.forEach((item) => {
+      this._renderer(item, this._profileId);
     });
   }
+
+  setProfileId(profileId) {
+    this.profileId = profileId
+  }
 }
+
