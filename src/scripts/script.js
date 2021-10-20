@@ -20,11 +20,11 @@ const popupProfile = new PopupWithForm(".popup_edit", (data) => {
     .updateProfileInfo(data.name, data.about)
     .then((res) => {
       userInfo.setUserInfo(res);
+      popupProfile.close();
     })
     .finally(() => {
       isLoading = false;
       updateSubmitButtonState(popupProfile, isLoading);
-      popupProfile.close();
     });
 });
 
@@ -35,11 +35,11 @@ const popupAdd = new PopupWithForm(".popup_add", (data) => {
     .sendCard(data.title, data.url)
     .then((res) => {
       cardList.setItem(createCard(res, cardList.profileId));
+      popupAdd.close();
     })
     .finally(() => {
       isLoading = false;
       updateSubmitButtonState(popupAdd, isLoading);
-      popupAdd.close();
     });
 });
 const popupAvatar = new PopupWithForm(".popup__edit-avatar", (data) => {
@@ -50,11 +50,11 @@ const popupAvatar = new PopupWithForm(".popup__edit-avatar", (data) => {
     .submitProfileAvatar(data.url)
     .then((res) => {
       userInfo.setUserInfo(res);
+      popupAvatar.close();
     })
     .finally(() => {
       isLoading = false;
       updateSubmitButtonState(popupAvatar, isLoading);
-      popupAvatar.close();
     });
 });
 
@@ -136,8 +136,9 @@ Promise.all([api.getProfileInfo(), api.getInitialCards()])
   })
   .catch((err) => console.log(`Ошибка: ${err}`));
 
+const cardPopup = new PopupWithImage(".popup_image");
+
 function createCard(item, profileId) {
-  const cardPopup = new PopupWithImage(".popup_image");
   const card = new Card(item, "#element", profileId, {
     handleCardClick: (name, link) => {
       cardPopup.open(name, link);

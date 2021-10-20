@@ -36,11 +36,7 @@ export default class Card {
     this._element.querySelector(".element__title").textContent = this._name;
 
     this._likes.forEach((user) => {
-      if (user._id === this._profileId) {
-        this._liked = true;
-      } else {
-        this._liked = false;
-      }
+      this._liked = user._id === this._profileId;
     });
 
     if (this._liked) {
