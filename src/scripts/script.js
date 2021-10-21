@@ -58,7 +58,7 @@ const popupAvatar = new PopupWithForm(".popup__edit-avatar", (data) => {
     });
 });
 
-const imagePopup = new Popup(".popup_image");
+const imagePopup = new PopupWithImage(".popup_image");
 
 popupProfile.setEventListeners();
 popupAdd.setEventListeners();
